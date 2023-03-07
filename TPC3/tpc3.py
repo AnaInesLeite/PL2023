@@ -12,10 +12,16 @@ def readfile(fullFileName):
     global dictPorRelacao
 
     f = open(fullFileName, "r")
+
+    countLines = 0
    
     if(f != None):
+        dict20Lines = {}
         buffer = f.readline()
         while (buffer != ""):
+            countLines += 1
+            if(countLines<20):
+                dict20Lines[countLines-1] = buffer
             size = len(buffer)-1
             itens = (buffer[:size]).split("::")
             if(itens != None):
@@ -29,13 +35,15 @@ def readfile(fullFileName):
                     parentes = itens[5]
                     parente = re.findall(r'\,([A-Za-z]+[\s]*[A-Za-z]*\.)', parentes)
                     r = len(re.findall(r'\,([A-Za-z]+[\s]*[A-Za-z]*\.)', parentes))
-                    print(parente)
                     for i in parente:
                         if i in dictPorRelacao:
                             dictPorRelacao[i]+=1
                         else:
                             dictPorRelacao[i] = 1
             buffer = f.readline()
+        outputFile = open("./file.json", "w")
+        json.dump(dict20Lines, outputFile)
+        outputFile.close()
         f.close()                             
     else:
         print("No such file")
