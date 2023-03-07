@@ -47,14 +47,27 @@ def calcFrequencia():
     totalRelacoes = sum(dictPorRelacao.values())
     freqRelacao = 0.0
     
+    espacos = '{:10}'.format(" ")
+    espacosRelacoes = '{:30}'.format(" ")
+
+    print("Ano"+espacos+"Frequência")
     for i in dictPorAno:
-        freqAnos = (float)(dictPorAno[i]/totalAnos)*100     
+        freqAnos = (float)(dictPorAno[i]/totalAnos)*100    
+        print(str(i)+espacos+"%.3f"%freqAnos)    
+
+    print('{:>20}'.format("Relação")+espacosRelacoes+"Frequência")
     for i in dictPorRelacao:
         freqRelacao =  (float)(dictPorRelacao[i]/totalRelacoes)
+        print('{:>20}'.format(str(i))+espacosRelacoes+"%.3f"%freqAnos)
+    
 
 def main():
     readfile("processos.txt")
+    calcFrequencia()
     return 0
 
 if __name__ == "__main__":
     main()    
+
+
+    
